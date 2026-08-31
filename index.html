@@ -36,8 +36,7 @@
   "name": "Feigi Web",
   "description": "Websites for local businesses — design, build, hosting and ongoing support.",
   "url": "https://feigiweb.com/",
-  "email": "hello@feigiweb.com",
-  "telephone": "+1-440-555-0192",
+  "email": "mikefeigi.websites@gmail.com",
   "priceRange": "$500-$3000+",
   "areaServed": {
     "@type": "GeoCircle",
@@ -670,15 +669,14 @@
       <h2>Let's get your business online</h2>
       <p>Send a few details about your business and I'll put together a free mockup — no cost, no obligation.</p>
       <div class="contact-detail">
-        <a href="mailto:hello@feigiweb.com">hello@feigiweb.com</a>
-        <a href="tel:+14405550192">(440) 555-0192</a>
+        <a href="mailto:mikefeigi.websites@gmail.com">mikefeigi.websites@gmail.com</a>
       </div>
     </div>
 
     <div>
       <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
 
-      <form id="mockupForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <form id="mockupForm" action="https://formspree.io/f/moeqevea" method="POST" novalidate>
         <div>
           <label for="name">Your name</label>
           <input id="name" name="name" type="text" placeholder="Jane Smith" required autocomplete="name" aria-describedby="err-name">
@@ -798,7 +796,7 @@
   var form   = document.getElementById('mockupForm');
   var status = document.getElementById('formStatus');
   var btn    = document.getElementById('submitBtn');
-  var FALLBACK_EMAIL = 'hello@feigiweb.com';
+  var FALLBACK_EMAIL = 'mikefeigi.websites@gmail.com';
 
   var fields = [
     { id:'name',     err:'err-name',     test:function(v){ return v.trim().length > 0; } },
@@ -869,7 +867,7 @@
       form.style.display = 'none';
       showStatus('Thanks - your request is in. I\'ll get back to you within a day with a mockup.');
     }).catch(function(){
-      showStatus('That didn\'t send. Email ' + FALLBACK_EMAIL + ' or call (440) 555-0192 and I\'ll pick it up from there.', true);
+      showStatus('That didn\'t send. Email ' + FALLBACK_EMAIL + ' directly and I\'ll pick it up from there.', true);
     }).finally(function(){
       btn.disabled = false;
       btn.textContent = 'Request my free mockup';
