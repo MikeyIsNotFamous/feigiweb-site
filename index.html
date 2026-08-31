@@ -299,12 +299,13 @@
     display:inline-block;margin-top:12px;font-size:0.78rem;color:var(--pine);
     border:1px solid var(--pine);border-radius:20px;padding:3px 11px;
   }
+  .work-tag.demo{color:var(--muted);border-color:var(--line);background:var(--paper);}
 
   /* TESTIMONIALS */
   .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
   .quote-card{border-left:2px solid var(--pine);padding:4px 0 4px 22px;}
-  .quote-card blockquote{font-size:1.02rem;color:var(--ink);line-height:1.55;}
-  .quote-card figcaption{margin-top:14px;font-size:0.88rem;color:var(--muted);}
+  .quote-card h3{font-size:1.08rem;font-weight:500;margin-bottom:10px;}
+  .quote-card p{font-size:0.97rem;color:var(--body);line-height:1.55;}
 
   /* PROCESS */
   .process-list{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
@@ -494,7 +495,7 @@
             <span>Landscaping done right, the first time.</span>
             <span>Serving Elyria &amp; the surrounding area since 2011</span>
           </div>
-          <div class="after-cards" role="img" aria-label="Placeholder thumbnails for a gallery of past landscaping jobs">
+          <div class="after-cards" role="img" aria-label="Photo gallery of past landscaping jobs">
             <div class="after-card"></div>
             <div class="after-card"></div>
             <div class="after-card"></div>
@@ -509,7 +510,7 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Recent work</h2>
-      <p>A few examples of the kind of site your business could have. Real client sites will replace these as they go live.</p>
+      <p>Sample builds showing what a finished site looks like for three different kinds of local business.</p>
     </div>
     <div class="work-grid">
       <div class="work-card">
@@ -520,7 +521,7 @@
         <div class="work-body">
           <h3>Cedar &amp; Stone Landscaping</h3>
           <p>Quote request form, project gallery, and service-area map.</p>
-          <span class="work-tag">Home &amp; garden</span>
+          <span class="work-tag">Home &amp; garden</span> <span class="work-tag demo">Sample build</span>
         </div>
       </div>
       <div class="work-card">
@@ -531,7 +532,7 @@
         <div class="work-body">
           <h3>Maple Row Bakery</h3>
           <p>Daily menu, online ordering link, and event catering inquiries.</p>
-          <span class="work-tag">Food &amp; drink</span>
+          <span class="work-tag">Food &amp; drink</span> <span class="work-tag demo">Sample build</span>
         </div>
       </div>
       <div class="work-card">
@@ -542,32 +543,32 @@
         <div class="work-body">
           <h3>Harbor Light Dental</h3>
           <p>Online booking, insurance info, and new-patient forms.</p>
-          <span class="work-tag">Health &amp; wellness</span>
+          <span class="work-tag">Health &amp; wellness</span> <span class="work-tag demo">Sample build</span>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section" id="reviews">
+<section class="section" id="promise">
   <div class="wrap">
     <div class="section-head">
-      <h2>What owners say</h2>
-      <p>Placeholder quotes for now — swap these for real client words as soon as you have them.</p>
+      <h2>What you get either way</h2>
+      <p>I'm new at this, so instead of a wall of reviews, here's what I'll put in writing on every job.</p>
     </div>
     <div class="quote-grid">
-      <figure class="quote-card">
-        <blockquote>He sent me a finished mockup before I'd paid a dime. That's what sold me.</blockquote>
-        <figcaption>Placeholder — client name, business</figcaption>
-      </figure>
-      <figure class="quote-card">
-        <blockquote>People find us on their phones now instead of calling to ask if we're still open.</blockquote>
-        <figcaption>Placeholder — client name, business</figcaption>
-      </figure>
-      <figure class="quote-card">
-        <blockquote>I text him a change and it's done the same day. I don't have to learn anything.</blockquote>
-        <figcaption>Placeholder — client name, business</figcaption>
-      </figure>
+      <div class="quote-card">
+        <h3>You see it before you pay</h3>
+        <p>The mockup is free and it's a working page, not a sketch. If you don't like it, you walk and it costs you nothing.</p>
+      </div>
+      <div class="quote-card">
+        <h3>The domain stays yours</h3>
+        <p>It's registered in your name, on your account. If we ever part ways, your site and address go with you.</p>
+      </div>
+      <div class="quote-card">
+        <h3>No long contracts</h3>
+        <p>Monthly support is month-to-month. Cancel any time and you keep the site you paid for.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -839,20 +840,7 @@
     });
     if(firstBad){ firstBad.focus(); return; }
 
-    var action = form.getAttribute('action') || '';
-
-    /* Endpoint not swapped in yet — fall back to the visitor's email client. */
-    if(action.indexOf('YOUR_FORM_ID') !== -1){
-      var body = 'Name: ' + form.name.value +
-                 '\nBusiness: ' + form.business.value +
-                 '\nEmail: ' + form.email.value +
-                 '\n\n' + form.message.value;
-      window.location.href = 'mailto:' + FALLBACK_EMAIL +
-        '?subject=' + encodeURIComponent('Free mockup request - ' + form.business.value) +
-        '&body=' + encodeURIComponent(body);
-      showStatus('Opening your email app to send this over. If nothing happens, email ' + FALLBACK_EMAIL + ' directly.');
-      return;
-    }
+    var action = form.getAttribute('action');
 
     btn.disabled = true;
     btn.textContent = 'Sending...';
