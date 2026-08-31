@@ -4,8 +4,85 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Feigi Web — Websites for local businesses</title>
+
+<meta name="description" content="Feigi Web builds fast, simple websites for local businesses in Northeast Ohio. Free mockup before you pay anything — builds from $500 with flat monthly hosting and support.">
+
+<link rel="canonical" href="https://feigiweb.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Feigi Web">
+<meta property="og:url" content="https://feigiweb.com/">
+<meta property="og:title" content="Feigi Web — Websites for local businesses">
+<meta property="og:description" content="Fast, simple websites for local businesses in Northeast Ohio. See a free mockup of your site before you pay anything.">
+<meta property="og:image" content="https://feigiweb.com/og-image.png">
+<meta property="og:image:alt" content="Feigi Web — websites for local businesses">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Feigi Web — Websites for local businesses">
+<meta name="twitter:description" content="Fast, simple websites for local businesses in Northeast Ohio. See a free mockup of your site before you pay anything.">
+<meta name="twitter:image" content="https://feigiweb.com/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232F5D50'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='600' fill='%23F6F4EF' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://feigiweb.com/#business",
+  "name": "Feigi Web",
+  "description": "Websites for local businesses — design, build, hosting and ongoing support.",
+  "url": "https://feigiweb.com/",
+  "email": "hello@feigiweb.com",
+  "telephone": "+1-440-555-0192",
+  "priceRange": "$500-$3000+",
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 41.3683,
+      "longitude": -82.1076
+    },
+    "geoRadius": "60000",
+    "name": "Northeast Ohio"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Michael Feigi"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Website packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Starter",
+        "price": "500",
+        "priceCurrency": "USD",
+        "description": "Up to 5 pages, mobile-friendly design, Google Business setup."
+      },
+      {
+        "@type": "Offer",
+        "name": "Growth",
+        "price": "1500",
+        "priceCurrency": "USD",
+        "description": "Custom multi-page design, booking or quote-request forms, basic SEO setup."
+      },
+      {
+        "@type": "Offer",
+        "name": "Complete",
+        "price": "3000",
+        "priceCurrency": "USD",
+        "description": "Online ordering or booking system, ongoing SEO and content."
+      }
+    ]
+  }
+}
+</script>
+
 <style>
   :root{
     --ink:#16241F;
@@ -15,6 +92,11 @@
     --pine:#2F5D50;
     --line:#D8D3C5;
     --white:#FFFFFF;
+    --muted:#5A655F;      /* 5.52:1 on paper */
+    --muted-soft:#5D6862; /* 5.27:1 on paper — replaced #6B7570 (4.34, failed AA) */
+    --muted-warm:#6E6857; /* 5.55:1 on white — replaced #8A8477 (3.72, failed AA) */
+    --body:#3C4A44;
+    --err:#9B2C2C;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
@@ -26,6 +108,7 @@
     line-height:1.5;
     -webkit-font-smoothing:antialiased;
   }
+  body.nav-open{overflow:hidden;}
   h1,h2,h3{
     font-family:'Fraunces',serif;
     font-weight:500;
@@ -37,10 +120,17 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
   :focus-visible{outline:2px solid var(--pine);outline-offset:3px;}
 
+  .skip-link{
+    position:absolute;left:-9999px;top:0;z-index:200;
+    background:var(--pine);color:var(--white);
+    padding:12px 20px;border-radius:0 0 4px 0;font-size:0.95rem;
+  }
+  .skip-link:focus{left:0;}
+
   /* NAV */
   nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(246,244,239,0.92);
+    position:sticky;top:0;z-index:60;
+    background:rgba(246,244,239,0.94);
     backdrop-filter:blur(6px);
     border-bottom:1px solid var(--line);
   }
@@ -50,16 +140,51 @@
   }
   .logo{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;}
   .navlinks{display:flex;gap:32px;align-items:center;}
-  .navlinks a{font-size:0.95rem;color:var(--ink);opacity:0.75;transition:opacity .15s;}
+  .navlinks a{font-size:0.95rem;color:var(--ink);opacity:0.78;transition:opacity .15s;}
   .navlinks a:hover{opacity:1;}
+  .navlinks a.btn{opacity:1;}
+
+  .nav-toggle{
+    display:none;
+    width:44px;height:44px;
+    align-items:center;justify-content:center;
+    background:none;border:1px solid var(--line);border-radius:4px;
+    cursor:pointer;color:var(--ink);
+  }
+  .nav-toggle svg{width:20px;height:20px;}
+  .nav-toggle .icon-close{display:none;}
+  .nav-toggle[aria-expanded="true"] .icon-open{display:none;}
+  .nav-toggle[aria-expanded="true"] .icon-close{display:block;}
+
+  .mobile-panel{
+    display:none;
+    position:fixed;top:72px;left:0;right:0;bottom:0;z-index:55;
+    background:var(--paper);
+    padding:24px 20px 40px;
+    flex-direction:column;gap:4px;
+    overflow-y:auto;
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel a{
+    display:flex;align-items:center;
+    min-height:52px;
+    font-size:1.1rem;
+    border-bottom:1px solid var(--line);
+  }
+  .mobile-panel a.btn{
+    margin-top:20px;border-bottom:none;justify-content:center;font-size:1rem;
+  }
+
   .btn{
     display:inline-flex;align-items:center;justify-content:center;
+    min-height:44px;
     padding:12px 22px;
     border-radius:3px;
     font-size:0.95rem;
     font-weight:500;
     cursor:pointer;
     border:1px solid transparent;
+    font-family:'Inter',sans-serif;
     transition:transform .12s ease, background .15s ease;
   }
   .btn-primary{background:var(--pine);color:var(--white);}
@@ -67,6 +192,7 @@
   .btn-ghost{border-color:var(--ink);color:var(--ink);}
   .btn-ghost:hover{background:var(--ink);color:var(--paper);}
   .btn:active{transform:scale(0.98);}
+  .btn[disabled]{opacity:0.6;cursor:default;}
 
   /* HERO */
   .hero{padding:96px 0 88px;}
@@ -78,10 +204,10 @@
   }
   .hero h1{font-size:3.15rem;max-width:520px;}
   .hero p.lede{
-    margin-top:22px;font-size:1.15rem;max-width:440px;color:#3C4A44;
+    margin-top:22px;font-size:1.15rem;max-width:440px;color:var(--body);
   }
-  .hero-ctas{display:flex;gap:14px;margin-top:34px;}
-  .hero-note{margin-top:18px;font-size:0.88rem;color:#6B7570;}
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap;}
+  .hero-note{margin-top:18px;font-size:0.88rem;color:var(--muted-soft);}
 
   /* Before/after mockup — signature element */
   .mock-frame{
@@ -90,51 +216,59 @@
     border-radius:6px;
     overflow:hidden;
     box-shadow:0 1px 0 var(--line);
+    min-width:0;
   }
   .mock-bar{
     display:flex;align-items:center;gap:8px;
-    padding:12px 16px;border-bottom:1px solid var(--line);
+    padding:6px 16px;border-bottom:1px solid var(--line);
+    min-height:56px;
   }
-  .mock-dot{width:9px;height:9px;border-radius:50%;background:var(--paper-dim);border:1px solid var(--line);}
+  .mock-dot{width:9px;height:9px;border-radius:50%;background:var(--paper-dim);border:1px solid var(--line);flex-shrink:0;}
   .mock-toggle-label{
-    margin-left:auto;font-size:0.82rem;color:#6B7570;
-    display:flex;gap:10px;align-items:center;
+    margin-left:auto;font-size:0.82rem;color:var(--muted-soft);
+    display:flex;gap:8px;align-items:center;
   }
   .switch{
-    position:relative;width:44px;height:24px;border-radius:12px;
-    background:var(--pine);cursor:pointer;border:none;flex-shrink:0;
+    position:relative;width:44px;height:44px;
+    background:none;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;padding:0;
   }
-  .switch::after{
+  .switch .track{
+    display:block;width:44px;height:24px;border-radius:12px;
+    background:var(--pine);position:relative;transition:background .2s ease;
+  }
+  .switch .track::after{
     content:"";position:absolute;top:3px;left:3px;
     width:18px;height:18px;border-radius:50%;background:var(--white);
     transition:transform .22s ease;
   }
-  .switch[aria-checked="false"]{background:#C9C2AE;}
-  .switch[aria-checked="false"]::after{transform:translateX(0);}
-  .switch[aria-checked="true"]::after{transform:translateX(20px);}
+  .switch[aria-checked="false"] .track{background:#8F887A;}
+  .switch[aria-checked="false"] .track::after{transform:translateX(0);}
+  .switch[aria-checked="true"] .track::after{transform:translateX(20px);}
 
   .mock-body{position:relative;height:340px;padding:22px;}
   .mock-state{
     position:absolute;inset:0;padding:22px;
     opacity:0;transition:opacity .3s ease;
-    pointer-events:none;
+    pointer-events:none;overflow:hidden;
   }
   .mock-state.visible{opacity:1;pointer-events:auto;}
 
-  .before-list{list-style:none;color:#8A8477;font-size:0.9rem;}
+  .before-list{list-style:none;color:var(--muted-warm);font-size:0.9rem;}
   .before-list li{padding:9px 0;border-bottom:1px dashed var(--line);}
-  .before-title{font-family:'Fraunces',serif;font-size:1.1rem;color:#8A8477;margin-bottom:14px;}
+  .before-title{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--muted-warm);margin-bottom:14px;}
 
-  .after-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .after-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:18px;}
   .after-logo{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);font-size:0.95rem;}
-  .after-cta{background:var(--amber);color:var(--ink);font-size:0.75rem;padding:6px 12px;border-radius:3px;font-weight:600;}
+  .after-cta{background:var(--amber);color:var(--ink);font-size:0.75rem;padding:6px 12px;border-radius:3px;font-weight:600;white-space:nowrap;}
   .after-hero{
     background:linear-gradient(135deg,var(--pine) 0%, #234840 100%);
-    border-radius:5px;height:130px;padding:20px;color:var(--paper);
+    border-radius:5px;min-height:130px;padding:20px;color:var(--paper);
     display:flex;flex-direction:column;justify-content:center;gap:8px;margin-bottom:16px;
   }
   .after-hero span:first-child{font-family:'Fraunces',serif;font-size:1.2rem;}
-  .after-hero span:last-child{font-size:0.8rem;opacity:0.85;}
+  .after-hero span:last-child{font-size:0.8rem;opacity:0.92;}
   .after-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
   .after-card{background:var(--paper-dim);border-radius:4px;height:64px;}
 
@@ -142,7 +276,7 @@
   .section{padding:88px 0;border-top:1px solid var(--line);}
   .section-head{max-width:540px;margin-bottom:52px;}
   .section-head h2{font-size:2.1rem;}
-  .section-head p{margin-top:14px;color:#3C4A44;font-size:1.05rem;}
+  .section-head p{margin-top:14px;color:var(--body);font-size:1.05rem;}
 
   /* WORK / PORTFOLIO */
   .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -155,17 +289,23 @@
     background:repeating-linear-gradient(45deg, var(--c1) 0 14px, var(--c2) 14px 28px);
     opacity:0.9;
   }
-  .work-preview span{
+  .work-preview .plate{
     position:relative;z-index:1;color:var(--white);font-family:'Fraunces',serif;
-    font-size:0.95rem;background:rgba(22,36,31,0.55);padding:6px 14px;border-radius:3px;
+    font-size:0.95rem;background:rgba(22,36,31,0.62);padding:6px 14px;border-radius:3px;
   }
   .work-body{padding:20px;}
   .work-body h3{font-size:1.1rem;font-weight:500;}
-  .work-body p{margin-top:6px;font-size:0.9rem;color:#5A655F;}
+  .work-body p{margin-top:6px;font-size:0.9rem;color:var(--muted);}
   .work-tag{
     display:inline-block;margin-top:12px;font-size:0.78rem;color:var(--pine);
     border:1px solid var(--pine);border-radius:20px;padding:3px 11px;
   }
+
+  /* TESTIMONIALS */
+  .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .quote-card{border-left:2px solid var(--pine);padding:4px 0 4px 22px;}
+  .quote-card blockquote{font-size:1.02rem;color:var(--ink);line-height:1.55;}
+  .quote-card figcaption{margin-top:14px;font-size:0.88rem;color:var(--muted);}
 
   /* PROCESS */
   .process-list{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
@@ -179,7 +319,7 @@
     font-family:'Fraunces',serif;font-size:0.95rem;position:relative;z-index:1;margin-bottom:20px;
   }
   .process-step h3{font-size:1.05rem;font-weight:500;margin-bottom:8px;}
-  .process-step p{font-size:0.9rem;color:#5A655F;}
+  .process-step p{font-size:0.9rem;color:var(--muted);}
 
   /* PRICING */
   .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
@@ -188,10 +328,10 @@
     display:flex;flex-direction:column;
   }
   .price-card.featured{border:1px solid var(--pine);box-shadow:0 0 0 1px var(--pine);}
-  .price-tier{font-size:0.92rem;color:#5A655F;margin-bottom:6px;}
+  .price-tier{font-size:0.92rem;color:var(--muted);margin-bottom:6px;}
   .price-amount{font-family:'Fraunces',serif;font-size:2.1rem;margin-bottom:4px;}
-  .price-amount span{font-size:1rem;font-family:'Inter',sans-serif;color:#5A655F;}
-  .price-desc{font-size:0.9rem;color:#5A655F;margin-bottom:22px;}
+  .price-amount span{font-size:1rem;font-family:'Inter',sans-serif;color:var(--muted);}
+  .price-desc{font-size:0.9rem;color:var(--muted);margin-bottom:22px;}
   .price-features{list-style:none;font-size:0.92rem;margin-bottom:26px;flex-grow:1;}
   .price-features li{padding:8px 0;border-top:1px solid var(--line);}
   .price-features li:first-child{border-top:none;}
@@ -204,43 +344,88 @@
     display:flex;align-items:center;justify-content:center;
     color:var(--paper);font-family:'Fraunces',serif;font-size:2.4rem;
   }
-  .about-copy p{color:#3C4A44;font-size:1.05rem;margin-bottom:16px;}
+  .about-copy h2{font-size:2.1rem;margin-bottom:20px;}
+  .about-copy p{color:var(--body);font-size:1.05rem;margin-bottom:16px;}
   .about-copy p:last-child{margin-bottom:0;}
 
   /* CONTACT */
   .contact-wrap{display:grid;grid-template-columns:0.5fr 0.5fr;gap:56px;}
   .contact-info h2{font-size:2.1rem;margin-bottom:16px;}
-  .contact-info p{color:#3C4A44;font-size:1.05rem;margin-bottom:28px;max-width:400px;}
+  .contact-info p{color:var(--body);font-size:1.05rem;margin-bottom:28px;max-width:400px;}
   .contact-detail{display:flex;flex-direction:column;gap:10px;font-size:0.98rem;}
-  .contact-detail a{border-bottom:1px solid var(--line);padding-bottom:10px;}
+  .contact-detail a{
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;min-height:44px;
+  }
   form{display:flex;flex-direction:column;gap:16px;}
-  label{font-size:0.85rem;color:#5A655F;display:block;margin-bottom:6px;}
+  label{font-size:0.85rem;color:var(--muted);display:block;margin-bottom:6px;}
   input,textarea{
-    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:4px;
-    background:var(--white);font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--ink);
+    width:100%;padding:12px 14px;min-height:44px;
+    border:1px solid var(--line);border-radius:4px;
+    background:var(--white);font-family:'Inter',sans-serif;font-size:1rem;color:var(--ink);
   }
   input:focus,textarea:focus{border-color:var(--pine);}
-  textarea{resize:vertical;min-height:100px;}
+  input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--err);}
+  textarea{resize:vertical;min-height:110px;}
+  .field-error{display:none;margin-top:6px;font-size:0.85rem;color:var(--err);}
+  .field-error.show{display:block;}
+  .form-status{
+    display:none;margin-bottom:20px;padding:16px 18px;border-radius:4px;font-size:0.95rem;
+    border:1px solid var(--pine);background:rgba(47,93,80,0.07);color:var(--ink);
+  }
+  .form-status.show{display:block;}
+  .form-status.error{border-color:var(--err);background:rgba(155,44,44,0.06);}
 
   footer{border-top:1px solid var(--line);padding:36px 0;}
-  footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;color:#6B7570;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:0.85rem;color:var(--muted-soft);flex-wrap:wrap;}
+
+  /* Sticky mobile CTA */
+  .sticky-cta{
+    display:none;
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    padding:12px 20px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(246,244,239,0.96);
+    backdrop-filter:blur(6px);
+    border-top:1px solid var(--line);
+  }
+  .sticky-cta .btn{width:100%;min-height:48px;}
 
   @media (max-width:860px){
-    .hero .wrap{grid-template-columns:1fr;}
+    .wrap{padding:0 20px;}
+    .hero{padding:56px 0 64px;}
+    .hero .wrap{grid-template-columns:1fr;gap:40px;}
     .hero h1{font-size:2.3rem;}
-    .work-grid,.price-grid{grid-template-columns:1fr;}
+    .work-grid,.price-grid,.quote-grid{grid-template-columns:1fr;}
     .process-list{grid-template-columns:1fr;gap:28px;}
     .process-list::before{display:none;}
-    .about-wrap,.contact-wrap{grid-template-columns:1fr;}
+    .about-wrap,.contact-wrap{grid-template-columns:1fr;gap:36px;}
+    .about-photo{max-width:200px;}
     .navlinks{display:none;}
-    .mock-body{height:auto;}
+    .nav-toggle{display:flex;}
+    .section{padding:64px 0;}
+    .mock-body{height:auto;min-height:0;padding:18px;}
+    .mock-state{position:relative;inset:auto;height:auto;padding:0;}
+    .mock-state:not(.visible){display:none;}
+    .sticky-cta{display:block;}
+    body{padding-bottom:78px;}
+    .quote-card{padding-left:18px;}
+  }
+  @media (max-width:420px){
+    .hero h1{font-size:1.95rem;}
+    .after-hero span:first-child{font-size:1.05rem;}
+    .mock-toggle-label{font-size:0.76rem;}
+    .after-cards{gap:6px;}
+    .after-card{height:52px;}
   }
   @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
     *{transition:none !important;}
   }
 </style>
 </head>
 <body>
+
+<a href="#main" class="skip-link">Skip to content</a>
 
 <nav>
   <div class="wrap">
@@ -252,8 +437,22 @@
       <a href="#about">About</a>
       <a href="#contact" class="btn btn-primary">Get a free mockup</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobilePanel" aria-label="Open menu">
+      <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
   </div>
 </nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <a href="#work">Work</a>
+  <a href="#process">Process</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#about">About</a>
+  <a href="#contact" class="btn btn-primary">Get a free mockup</a>
+</div>
+
+<main id="main">
 
 <section class="hero">
   <div class="wrap">
@@ -272,7 +471,9 @@
         <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
         <div class="mock-toggle-label">
           <span id="toggle-caption">Before</span>
-          <button class="switch" id="mockSwitch" role="switch" aria-checked="false" aria-label="Toggle before and after preview"></button>
+          <button class="switch" id="mockSwitch" role="switch" aria-checked="false" aria-label="Show the after version of the example site">
+            <span class="track" aria-hidden="true"></span>
+          </button>
         </div>
       </div>
       <div class="mock-body">
@@ -294,7 +495,7 @@
             <span>Landscaping done right, the first time.</span>
             <span>Serving Elyria &amp; the surrounding area since 2011</span>
           </div>
-          <div class="after-cards">
+          <div class="after-cards" role="img" aria-label="Placeholder thumbnails for a gallery of past landscaping jobs">
             <div class="after-card"></div>
             <div class="after-card"></div>
             <div class="after-card"></div>
@@ -313,7 +514,10 @@
     </div>
     <div class="work-grid">
       <div class="work-card">
-        <div class="work-preview" style="--c1:#2F5D50;--c2:#26493F;"><span>Cedar &amp; Stone</span></div>
+        <div class="work-preview" role="img" aria-label="Site preview for Cedar and Stone Landscaping">
+          <span class="stripe" style="--c1:#2F5D50;--c2:#26493F;" aria-hidden="true"></span>
+          <span class="plate">Cedar &amp; Stone</span>
+        </div>
         <div class="work-body">
           <h3>Cedar &amp; Stone Landscaping</h3>
           <p>Quote request form, project gallery, and service-area map.</p>
@@ -321,7 +525,10 @@
         </div>
       </div>
       <div class="work-card">
-        <div class="work-preview" style="--c1:#E2A63B;--c2:#C98A24;"><span>Maple Row</span></div>
+        <div class="work-preview" role="img" aria-label="Site preview for Maple Row Bakery">
+          <span class="stripe" style="--c1:#E2A63B;--c2:#C98A24;" aria-hidden="true"></span>
+          <span class="plate">Maple Row</span>
+        </div>
         <div class="work-body">
           <h3>Maple Row Bakery</h3>
           <p>Daily menu, online ordering link, and event catering inquiries.</p>
@@ -329,13 +536,39 @@
         </div>
       </div>
       <div class="work-card">
-        <div class="work-preview" style="--c1:#16241F;--c2:#3C4A44;"><span>Harbor Light</span></div>
+        <div class="work-preview" role="img" aria-label="Site preview for Harbor Light Dental">
+          <span class="stripe" style="--c1:#16241F;--c2:#3C4A44;" aria-hidden="true"></span>
+          <span class="plate">Harbor Light</span>
+        </div>
         <div class="work-body">
           <h3>Harbor Light Dental</h3>
           <p>Online booking, insurance info, and new-patient forms.</p>
           <span class="work-tag">Health &amp; wellness</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>What owners say</h2>
+      <p>Placeholder quotes for now — swap these for real client words as soon as you have them.</p>
+    </div>
+    <div class="quote-grid">
+      <figure class="quote-card">
+        <blockquote>He sent me a finished mockup before I'd paid a dime. That's what sold me.</blockquote>
+        <figcaption>Placeholder — client name, business</figcaption>
+      </figure>
+      <figure class="quote-card">
+        <blockquote>People find us on their phones now instead of calling to ask if we're still open.</blockquote>
+        <figcaption>Placeholder — client name, business</figcaption>
+      </figure>
+      <figure class="quote-card">
+        <blockquote>I text him a change and it's done the same day. I don't have to learn anything.</blockquote>
+        <figcaption>Placeholder — client name, business</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -421,9 +654,9 @@
 <section class="section" id="about">
   <div class="wrap">
     <div class="about-wrap">
-      <div class="about-photo">MF</div>
+      <div class="about-photo" role="img" aria-label="Michael Feigi">MF</div>
       <div class="about-copy">
-        <h2 style="font-size:2.1rem;margin-bottom:20px;">About Feigi Web</h2>
+        <h2>About Feigi Web</h2>
         <p>I'm Michael Feigi. I build websites for local businesses that don't have the time or interest in dealing with one themselves — but need customers to be able to find them.</p>
         <p>Every project starts with a free mockup, so you can see exactly what you're getting before committing to anything. No long contracts, no jargon, no waiting weeks to see progress.</p>
       </div>
@@ -441,27 +674,38 @@
         <a href="tel:+14405550192">(440) 555-0192</a>
       </div>
     </div>
-    <form onsubmit="event.preventDefault();">
-      <div>
-        <label for="name">Your name</label>
-        <input id="name" type="text" placeholder="Jane Smith">
-      </div>
-      <div>
-        <label for="business">Business name</label>
-        <input id="business" type="text" placeholder="Smith's Auto Repair">
-      </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" placeholder="jane@smithsauto.com">
-      </div>
-      <div>
-        <label for="message">What does your business need?</label>
-        <textarea id="message" placeholder="We don't have a website yet, just a Facebook page."></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Request my free mockup</button>
-    </form>
+
+    <div>
+      <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
+
+      <form id="mockupForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <div>
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Jane Smith" required autocomplete="name" aria-describedby="err-name">
+          <p class="field-error" id="err-name">Enter your name.</p>
+        </div>
+        <div>
+          <label for="business">Business name</label>
+          <input id="business" name="business" type="text" placeholder="Smith's Auto Repair" required autocomplete="organization" aria-describedby="err-business">
+          <p class="field-error" id="err-business">Enter your business name.</p>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="jane@smithsauto.com" required autocomplete="email" aria-describedby="err-email">
+          <p class="field-error" id="err-email">Enter a valid email address.</p>
+        </div>
+        <div>
+          <label for="message">What does your business need?</label>
+          <textarea id="message" name="message" placeholder="We don't have a website yet, just a Facebook page." required aria-describedby="err-message"></textarea>
+          <p class="field-error" id="err-message">Tell me a little about what you need.</p>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn">Request my free mockup</button>
+      </form>
+    </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="wrap">
@@ -470,18 +714,168 @@
   </div>
 </footer>
 
+<div class="sticky-cta">
+  <a href="#contact" class="btn btn-primary">Get a free mockup</a>
+</div>
+
 <script>
-  const sw = document.getElementById('mockSwitch');
-  const before = document.getElementById('state-before');
-  const after = document.getElementById('state-after');
-  const caption = document.getElementById('toggle-caption');
-  sw.addEventListener('click', () => {
-    const on = sw.getAttribute('aria-checked') === 'true';
+(function(){
+  /* ---------- Mobile nav ---------- */
+  var toggle = document.getElementById('navToggle');
+  var panel  = document.getElementById('mobilePanel');
+
+  function navIsOpen(){ return panel.classList.contains('open'); }
+
+  function openNav(){
+    panel.classList.add('open');
+    toggle.setAttribute('aria-expanded','true');
+    toggle.setAttribute('aria-label','Close menu');
+    document.body.classList.add('nav-open');
+  }
+  function closeNav(focusToggle){
+    panel.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    toggle.setAttribute('aria-label','Open menu');
+    document.body.classList.remove('nav-open');
+    if(focusToggle) toggle.focus();
+  }
+
+  toggle.addEventListener('click', function(){
+    navIsOpen() ? closeNav(false) : openNav();
+  });
+
+  panel.addEventListener('click', function(e){
+    if(e.target.closest('a')) closeNav(false);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(!navIsOpen()) return;
+    if(e.key === 'Escape'){ closeNav(true); return; }
+    if(e.key === 'Tab'){
+      /* keep focus inside the open panel */
+      var items = [toggle].concat(Array.prototype.slice.call(panel.querySelectorAll('a')));
+      var i = items.indexOf(document.activeElement);
+      if(i === -1){ e.preventDefault(); items[0].focus(); return; }
+      var next = e.shiftKey ? i - 1 : i + 1;
+      if(next < 0) next = items.length - 1;
+      if(next >= items.length) next = 0;
+      e.preventDefault();
+      items[next].focus();
+    }
+  });
+
+  document.addEventListener('click', function(e){
+    if(!navIsOpen()) return;
+    if(!panel.contains(e.target) && !toggle.contains(e.target)) closeNav(false);
+  });
+
+  window.addEventListener('resize', function(){
+    if(window.innerWidth > 860 && navIsOpen()) closeNav(false);
+  });
+
+  /* ---------- Before / after switch ---------- */
+  var sw      = document.getElementById('mockSwitch');
+  var before  = document.getElementById('state-before');
+  var after   = document.getElementById('state-after');
+  var caption = document.getElementById('toggle-caption');
+
+  function flip(){
+    var on = sw.getAttribute('aria-checked') === 'true';
     sw.setAttribute('aria-checked', String(!on));
+    sw.setAttribute('aria-label', on
+      ? 'Show the after version of the example site'
+      : 'Show the before version of the example site');
     before.classList.toggle('visible', on);
     after.classList.toggle('visible', !on);
     caption.textContent = on ? 'Before' : 'After';
+  }
+  sw.addEventListener('click', flip);
+  sw.addEventListener('keydown', function(e){
+    if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); flip(); }
   });
+
+  /* ---------- Contact form ---------- */
+  var form   = document.getElementById('mockupForm');
+  var status = document.getElementById('formStatus');
+  var btn    = document.getElementById('submitBtn');
+  var FALLBACK_EMAIL = 'hello@feigiweb.com';
+
+  var fields = [
+    { id:'name',     err:'err-name',     test:function(v){ return v.trim().length > 0; } },
+    { id:'business', err:'err-business', test:function(v){ return v.trim().length > 0; } },
+    { id:'email',    err:'err-email',    test:function(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()); } },
+    { id:'message',  err:'err-message',  test:function(v){ return v.trim().length > 0; } }
+  ];
+
+  function validateField(f){
+    var el = document.getElementById(f.id);
+    var errEl = document.getElementById(f.err);
+    var ok = f.test(el.value);
+    errEl.classList.toggle('show', !ok);
+    el.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+
+  fields.forEach(function(f){
+    var el = document.getElementById(f.id);
+    el.addEventListener('blur', function(){ validateField(f); });
+    el.addEventListener('input', function(){
+      if(el.getAttribute('aria-invalid') === 'true') validateField(f);
+    });
+  });
+
+  function showStatus(msg, isError){
+    status.textContent = msg;
+    status.classList.add('show');
+    status.classList.toggle('error', !!isError);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    status.classList.remove('show');
+
+    var firstBad = null;
+    fields.forEach(function(f){
+      var ok = validateField(f);
+      if(!ok && !firstBad) firstBad = document.getElementById(f.id);
+    });
+    if(firstBad){ firstBad.focus(); return; }
+
+    var action = form.getAttribute('action') || '';
+
+    /* Endpoint not swapped in yet — fall back to the visitor's email client. */
+    if(action.indexOf('YOUR_FORM_ID') !== -1){
+      var body = 'Name: ' + form.name.value +
+                 '\nBusiness: ' + form.business.value +
+                 '\nEmail: ' + form.email.value +
+                 '\n\n' + form.message.value;
+      window.location.href = 'mailto:' + FALLBACK_EMAIL +
+        '?subject=' + encodeURIComponent('Free mockup request - ' + form.business.value) +
+        '&body=' + encodeURIComponent(body);
+      showStatus('Opening your email app to send this over. If nothing happens, email ' + FALLBACK_EMAIL + ' directly.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    fetch(action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if(!res.ok) throw new Error('Bad response');
+      form.reset();
+      form.style.display = 'none';
+      showStatus('Thanks - your request is in. I\'ll get back to you within a day with a mockup.');
+    }).catch(function(){
+      showStatus('That didn\'t send. Email ' + FALLBACK_EMAIL + ' or call (440) 555-0192 and I\'ll pick it up from there.', true);
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = 'Request my free mockup';
+    });
+  });
+})();
 </script>
 
 </body>
