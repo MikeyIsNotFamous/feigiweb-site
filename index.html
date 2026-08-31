@@ -24,6 +24,11 @@
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232F5D50'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='600' fill='%23F6F4EF' text-anchor='middle'%3EF%3C/text%3E%3C/svg%3E">
 
+<script>
+  document.documentElement.classList.add('js-anim');
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -417,9 +422,31 @@
     .after-cards{gap:6px;}
     .after-card{height:52px;}
   }
+  /* One orchestrated entrance on first paint — nothing animates on scroll. */
+  .js-anim .reveal{
+    opacity:0;
+    transform:translateY(14px);
+  }
+  .js-anim.ready .reveal{
+    opacity:1;
+    transform:none;
+    transition:opacity .62s cubic-bezier(.22,.61,.36,1), transform .62s cubic-bezier(.22,.61,.36,1);
+  }
+  .js-anim.ready .reveal:nth-child(1){transition-delay:.04s;}
+  .js-anim.ready .reveal:nth-child(2){transition-delay:.12s;}
+  .js-anim.ready .reveal:nth-child(3){transition-delay:.20s;}
+  .js-anim.ready .reveal:nth-child(4){transition-delay:.28s;}
+  .js-anim .mock-frame.reveal{transform:translateY(20px) scale(.985);}
+  .js-anim.ready .mock-frame.reveal{
+    transform:none;
+    transition:opacity .8s cubic-bezier(.22,.61,.36,1) .22s, transform .8s cubic-bezier(.22,.61,.36,1) .22s;
+  }
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *{transition:none !important;}
+    .js-anim .reveal,
+    .js-anim .mock-frame.reveal{opacity:1;transform:none;}
   }
 </style>
 </head>
@@ -457,16 +484,16 @@
 <section class="hero">
   <div class="wrap">
     <div>
-      <h1>Your customers already searched. They found your competitor's website.</h1>
-      <p class="lede">Feigi Web builds fast, simple websites for local businesses — so the next search ends at your door, not theirs.</p>
-      <div class="hero-ctas">
+      <h1 class="reveal">Your customers already searched. They found your competitor's website.</h1>
+      <p class="lede reveal">Feigi Web builds fast, simple websites for local businesses — so the next search ends at your door, not theirs.</p>
+      <div class="hero-ctas reveal">
         <a href="#contact" class="btn btn-primary">Get a free mockup</a>
         <a href="#work" class="btn btn-ghost">See recent work</a>
       </div>
-      <p class="hero-note">No cost, no obligation — see your business online before you decide anything.</p>
+      <p class="hero-note reveal">No cost, no obligation — see your business online before you decide anything.</p>
     </div>
 
-    <div class="mock-frame">
+    <div class="mock-frame reveal">
       <div class="mock-bar">
         <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
         <div class="mock-toggle-label">
@@ -719,6 +746,18 @@
 
 <script>
 (function(){
+  /* ---------- Entrance + scroll position ---------- */
+  /* Refresh returns to the top unless the URL points at a section. */
+  if(!window.location.hash){
+    window.scrollTo(0,0);
+    window.addEventListener('load', function(){ window.scrollTo(0,0); });
+  }
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      document.documentElement.classList.add('ready');
+    });
+  });
+
   /* ---------- Mobile nav ---------- */
   var toggle = document.getElementById('navToggle');
   var panel  = document.getElementById('mobilePanel');
