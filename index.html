@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feigi Web — Websites for local businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16241F;
+    --paper:#F6F4EF;
+    --paper-dim:#EFEBE2;
+    --amber:#E2A63B;
+    --pine:#2F5D50;
+    --line:#D8D3C5;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    line-height:1.12;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+  :focus-visible{outline:2px solid var(--pine);outline-offset:3px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(246,244,239,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;
+  }
+  .logo{font-family:'Fraunces',serif;font-size:1.25rem;font-weight:600;}
+  .navlinks{display:flex;gap:32px;align-items:center;}
+  .navlinks a{font-size:0.95rem;color:var(--ink);opacity:0.75;transition:opacity .15s;}
+  .navlinks a:hover{opacity:1;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:12px 22px;
+    border-radius:3px;
+    font-size:0.95rem;
+    font-weight:500;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .12s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--pine);color:var(--white);}
+  .btn-primary:hover{background:#26493F;}
+  .btn-ghost{border-color:var(--ink);color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+  .btn:active{transform:scale(0.98);}
+
+  /* HERO */
+  .hero{padding:96px 0 88px;}
+  .hero .wrap{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:64px;
+    align-items:center;
+  }
+  .hero h1{font-size:3.15rem;max-width:520px;}
+  .hero p.lede{
+    margin-top:22px;font-size:1.15rem;max-width:440px;color:#3C4A44;
+  }
+  .hero-ctas{display:flex;gap:14px;margin-top:34px;}
+  .hero-note{margin-top:18px;font-size:0.88rem;color:#6B7570;}
+
+  /* Before/after mockup — signature element */
+  .mock-frame{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .mock-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 16px;border-bottom:1px solid var(--line);
+  }
+  .mock-dot{width:9px;height:9px;border-radius:50%;background:var(--paper-dim);border:1px solid var(--line);}
+  .mock-toggle-label{
+    margin-left:auto;font-size:0.82rem;color:#6B7570;
+    display:flex;gap:10px;align-items:center;
+  }
+  .switch{
+    position:relative;width:44px;height:24px;border-radius:12px;
+    background:var(--pine);cursor:pointer;border:none;flex-shrink:0;
+  }
+  .switch::after{
+    content:"";position:absolute;top:3px;left:3px;
+    width:18px;height:18px;border-radius:50%;background:var(--white);
+    transition:transform .22s ease;
+  }
+  .switch[aria-checked="false"]{background:#C9C2AE;}
+  .switch[aria-checked="false"]::after{transform:translateX(0);}
+  .switch[aria-checked="true"]::after{transform:translateX(20px);}
+
+  .mock-body{position:relative;height:340px;padding:22px;}
+  .mock-state{
+    position:absolute;inset:0;padding:22px;
+    opacity:0;transition:opacity .3s ease;
+    pointer-events:none;
+  }
+  .mock-state.visible{opacity:1;pointer-events:auto;}
+
+  .before-list{list-style:none;color:#8A8477;font-size:0.9rem;}
+  .before-list li{padding:9px 0;border-bottom:1px dashed var(--line);}
+  .before-title{font-family:'Fraunces',serif;font-size:1.1rem;color:#8A8477;margin-bottom:14px;}
+
+  .after-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+  .after-logo{font-family:'Fraunces',serif;font-weight:600;color:var(--ink);font-size:0.95rem;}
+  .after-cta{background:var(--amber);color:var(--ink);font-size:0.75rem;padding:6px 12px;border-radius:3px;font-weight:600;}
+  .after-hero{
+    background:linear-gradient(135deg,var(--pine) 0%, #234840 100%);
+    border-radius:5px;height:130px;padding:20px;color:var(--paper);
+    display:flex;flex-direction:column;justify-content:center;gap:8px;margin-bottom:16px;
+  }
+  .after-hero span:first-child{font-family:'Fraunces',serif;font-size:1.2rem;}
+  .after-hero span:last-child{font-size:0.8rem;opacity:0.85;}
+  .after-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .after-card{background:var(--paper-dim);border-radius:4px;height:64px;}
+
+  /* SECTION HEADERS */
+  .section{padding:88px 0;border-top:1px solid var(--line);}
+  .section-head{max-width:540px;margin-bottom:52px;}
+  .section-head h2{font-size:2.1rem;}
+  .section-head p{margin-top:14px;color:#3C4A44;font-size:1.05rem;}
+
+  /* WORK / PORTFOLIO */
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .work-card{
+    border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--white);
+  }
+  .work-preview{height:150px;display:flex;align-items:center;justify-content:center;position:relative;}
+  .work-preview .stripe{
+    position:absolute;inset:0;
+    background:repeating-linear-gradient(45deg, var(--c1) 0 14px, var(--c2) 14px 28px);
+    opacity:0.9;
+  }
+  .work-preview span{
+    position:relative;z-index:1;color:var(--white);font-family:'Fraunces',serif;
+    font-size:0.95rem;background:rgba(22,36,31,0.55);padding:6px 14px;border-radius:3px;
+  }
+  .work-body{padding:20px;}
+  .work-body h3{font-size:1.1rem;font-weight:500;}
+  .work-body p{margin-top:6px;font-size:0.9rem;color:#5A655F;}
+  .work-tag{
+    display:inline-block;margin-top:12px;font-size:0.78rem;color:var(--pine);
+    border:1px solid var(--pine);border-radius:20px;padding:3px 11px;
+  }
+
+  /* PROCESS */
+  .process-list{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;}
+  .process-list::before{
+    content:"";position:absolute;top:19px;left:0;right:0;height:1px;background:var(--line);
+  }
+  .process-step{padding-right:20px;position:relative;}
+  .step-num{
+    width:38px;height:38px;border-radius:50%;background:var(--paper);
+    border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:0.95rem;position:relative;z-index:1;margin-bottom:20px;
+  }
+  .process-step h3{font-size:1.05rem;font-weight:500;margin-bottom:8px;}
+  .process-step p{font-size:0.9rem;color:#5A655F;}
+
+  /* PRICING */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .price-card{
+    border:1px solid var(--line);border-radius:6px;padding:32px 28px;background:var(--white);
+    display:flex;flex-direction:column;
+  }
+  .price-card.featured{border:1px solid var(--pine);box-shadow:0 0 0 1px var(--pine);}
+  .price-tier{font-size:0.92rem;color:#5A655F;margin-bottom:6px;}
+  .price-amount{font-family:'Fraunces',serif;font-size:2.1rem;margin-bottom:4px;}
+  .price-amount span{font-size:1rem;font-family:'Inter',sans-serif;color:#5A655F;}
+  .price-desc{font-size:0.9rem;color:#5A655F;margin-bottom:22px;}
+  .price-features{list-style:none;font-size:0.92rem;margin-bottom:26px;flex-grow:1;}
+  .price-features li{padding:8px 0;border-top:1px solid var(--line);}
+  .price-features li:first-child{border-top:none;}
+
+  /* ABOUT */
+  .about-wrap{display:grid;grid-template-columns:0.4fr 0.6fr;gap:56px;align-items:start;}
+  .about-photo{
+    aspect-ratio:1;border-radius:6px;
+    background:linear-gradient(160deg,var(--pine),#1D3A32);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--paper);font-family:'Fraunces',serif;font-size:2.4rem;
+  }
+  .about-copy p{color:#3C4A44;font-size:1.05rem;margin-bottom:16px;}
+  .about-copy p:last-child{margin-bottom:0;}
+
+  /* CONTACT */
+  .contact-wrap{display:grid;grid-template-columns:0.5fr 0.5fr;gap:56px;}
+  .contact-info h2{font-size:2.1rem;margin-bottom:16px;}
+  .contact-info p{color:#3C4A44;font-size:1.05rem;margin-bottom:28px;max-width:400px;}
+  .contact-detail{display:flex;flex-direction:column;gap:10px;font-size:0.98rem;}
+  .contact-detail a{border-bottom:1px solid var(--line);padding-bottom:10px;}
+  form{display:flex;flex-direction:column;gap:16px;}
+  label{font-size:0.85rem;color:#5A655F;display:block;margin-bottom:6px;}
+  input,textarea{
+    width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:4px;
+    background:var(--white);font-family:'Inter',sans-serif;font-size:0.95rem;color:var(--ink);
+  }
+  input:focus,textarea:focus{border-color:var(--pine);}
+  textarea{resize:vertical;min-height:100px;}
+
+  footer{border-top:1px solid var(--line);padding:36px 0;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;font-size:0.85rem;color:#6B7570;}
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .hero h1{font-size:2.3rem;}
+    .work-grid,.price-grid{grid-template-columns:1fr;}
+    .process-list{grid-template-columns:1fr;gap:28px;}
+    .process-list::before{display:none;}
+    .about-wrap,.contact-wrap{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+    .mock-body{height:auto;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">Feigi Web</div>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#about">About</a>
+      <a href="#contact" class="btn btn-primary">Get a free mockup</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1>Your customers already searched. They found your competitor's website.</h1>
+      <p class="lede">Feigi Web builds fast, simple websites for local businesses — so the next search ends at your door, not theirs.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Get a free mockup</a>
+        <a href="#work" class="btn btn-ghost">See recent work</a>
+      </div>
+      <p class="hero-note">No cost, no obligation — see your business online before you decide anything.</p>
+    </div>
+
+    <div class="mock-frame">
+      <div class="mock-bar">
+        <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+        <div class="mock-toggle-label">
+          <span id="toggle-caption">Before</span>
+          <button class="switch" id="mockSwitch" role="switch" aria-checked="false" aria-label="Toggle before and after preview"></button>
+        </div>
+      </div>
+      <div class="mock-body">
+        <div class="mock-state visible" id="state-before">
+          <div class="before-title">Cedar &amp; Stone Landscaping</div>
+          <ul class="before-list">
+            <li>Facebook page, last posted 2023</li>
+            <li>Phone number listed twice, both wrong</li>
+            <li>No way to see photos of past jobs</li>
+            <li>Doesn't show up for "landscaper near me"</li>
+          </ul>
+        </div>
+        <div class="mock-state" id="state-after">
+          <div class="after-nav">
+            <span class="after-logo">Cedar &amp; Stone</span>
+            <span class="after-cta">Get a quote</span>
+          </div>
+          <div class="after-hero">
+            <span>Landscaping done right, the first time.</span>
+            <span>Serving Elyria &amp; the surrounding area since 2011</span>
+          </div>
+          <div class="after-cards">
+            <div class="after-card"></div>
+            <div class="after-card"></div>
+            <div class="after-card"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Recent work</h2>
+      <p>A few examples of the kind of site your business could have. Real client sites will replace these as they go live.</p>
+    </div>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-preview" style="--c1:#2F5D50;--c2:#26493F;"><span>Cedar &amp; Stone</span></div>
+        <div class="work-body">
+          <h3>Cedar &amp; Stone Landscaping</h3>
+          <p>Quote request form, project gallery, and service-area map.</p>
+          <span class="work-tag">Home &amp; garden</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-preview" style="--c1:#E2A63B;--c2:#C98A24;"><span>Maple Row</span></div>
+        <div class="work-body">
+          <h3>Maple Row Bakery</h3>
+          <p>Daily menu, online ordering link, and event catering inquiries.</p>
+          <span class="work-tag">Food &amp; drink</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-preview" style="--c1:#16241F;--c2:#3C4A44;"><span>Harbor Light</span></div>
+        <div class="work-body">
+          <h3>Harbor Light Dental</h3>
+          <p>Online booking, insurance info, and new-patient forms.</p>
+          <span class="work-tag">Health &amp; wellness</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>Four steps, start to finish. You'll see a working preview before you pay for anything.</p>
+    </div>
+    <div class="process-list">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h3>Free mockup</h3>
+        <p>You get a working preview of your new site before spending anything.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h3>Build</h3>
+        <p>Once you approve it, the full site gets built out with your content and photos.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h3>Launch</h3>
+        <p>Your site goes live on your domain and gets connected to your Google Business listing.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <h3>Ongoing support</h3>
+        <p>Hosting, updates, and small changes are handled monthly, so the site keeps working for you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Pricing</h2>
+      <p>One price for the build, one flat monthly rate to keep it running. No surprise invoices.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-tier">Starter</div>
+        <div class="price-amount">$500<span>build</span></div>
+        <div class="price-desc">A focused site for a business that just needs to be found.</div>
+        <ul class="price-features">
+          <li>Up to 5 pages</li>
+          <li>Mobile-friendly design</li>
+          <li>Google Business setup</li>
+          <li>$30/mo hosting &amp; support</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Get started</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tier">Growth</div>
+        <div class="price-amount">$1,500<span>build</span></div>
+        <div class="price-desc">A custom-built site with the features most local businesses actually need.</div>
+        <ul class="price-features">
+          <li>Custom multi-page design</li>
+          <li>Booking or quote-request forms</li>
+          <li>Basic SEO setup</li>
+          <li>$75/mo hosting &amp; support</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Get started</a>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Complete</div>
+        <div class="price-amount">$3,000+<span>build</span></div>
+        <div class="price-desc">For businesses that need online ordering, booking systems, or e-commerce.</div>
+        <ul class="price-features">
+          <li>Everything in Growth</li>
+          <li>Online ordering or booking system</li>
+          <li>Ongoing SEO &amp; content</li>
+          <li>$150/mo hosting &amp; support</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Get started</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="about-wrap">
+      <div class="about-photo">MF</div>
+      <div class="about-copy">
+        <h2 style="font-size:2.1rem;margin-bottom:20px;">About Feigi Web</h2>
+        <p>I'm Michael Feigi. I build websites for local businesses that don't have the time or interest in dealing with one themselves — but need customers to be able to find them.</p>
+        <p>Every project starts with a free mockup, so you can see exactly what you're getting before committing to anything. No long contracts, no jargon, no waiting weeks to see progress.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap contact-wrap">
+    <div class="contact-info">
+      <h2>Let's get your business online</h2>
+      <p>Send a few details about your business and I'll put together a free mockup — no cost, no obligation.</p>
+      <div class="contact-detail">
+        <a href="mailto:hello@feigiweb.com">hello@feigiweb.com</a>
+        <a href="tel:+14405550192">(440) 555-0192</a>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();">
+      <div>
+        <label for="name">Your name</label>
+        <input id="name" type="text" placeholder="Jane Smith">
+      </div>
+      <div>
+        <label for="business">Business name</label>
+        <input id="business" type="text" placeholder="Smith's Auto Repair">
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="jane@smithsauto.com">
+      </div>
+      <div>
+        <label for="message">What does your business need?</label>
+        <textarea id="message" placeholder="We don't have a website yet, just a Facebook page."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Request my free mockup</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Feigi Web</span>
+    <span>Serving local businesses in Northeast Ohio</span>
+  </div>
+</footer>
+
+<script>
+  const sw = document.getElementById('mockSwitch');
+  const before = document.getElementById('state-before');
+  const after = document.getElementById('state-after');
+  const caption = document.getElementById('toggle-caption');
+  sw.addEventListener('click', () => {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.setAttribute('aria-checked', String(!on));
+    before.classList.toggle('visible', on);
+    after.classList.toggle('visible', !on);
+    caption.textContent = on ? 'Before' : 'After';
+  });
+</script>
+
+</body>
+</html>
