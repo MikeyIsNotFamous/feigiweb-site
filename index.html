@@ -384,6 +384,7 @@
 
   footer{border-top:1px solid var(--line);padding:36px 0;}
   footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:0.85rem;color:var(--muted-soft);flex-wrap:wrap;}
+  .footer-links a{color:var(--muted-soft);}
 
   /* Sticky mobile CTA */
   .sticky-cta{
@@ -441,6 +442,86 @@
   .js-anim.ready .mock-frame.reveal{
     transform:none;
     transition:opacity .8s cubic-bezier(.22,.61,.36,1) .22s, transform .8s cubic-bezier(.22,.61,.36,1) .22s;
+  }
+
+
+  /* WORK CARD AS TRIGGER */
+  .work-card{
+    border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--white);
+    display:block;width:100%;text-align:left;font-family:'Inter',sans-serif;cursor:pointer;
+    padding:0;transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .work-card:hover{border-color:var(--pine);box-shadow:0 2px 10px rgba(22,36,31,0.07);}
+  .work-cta{
+    margin-top:14px;font-size:0.88rem;color:var(--pine);font-weight:500;
+  }
+
+  /* MODAL */
+  .modal-overlay{
+    display:none;position:fixed;inset:0;z-index:100;
+    background:rgba(22,36,31,0.55);
+    align-items:center;justify-content:center;
+    padding:32px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal-panel{
+    background:var(--white);width:100%;max-width:960px;max-height:86vh;
+    border-radius:10px;overflow:hidden;display:flex;flex-direction:column;
+    box-shadow:0 24px 60px rgba(22,36,31,0.28);
+  }
+  .modal-bar{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 16px;border-bottom:1px solid var(--line);background:var(--paper-dim);
+    flex-shrink:0;
+  }
+  .modal-url{
+    font-size:0.85rem;color:var(--muted-soft);background:var(--white);
+    border:1px solid var(--line);border-radius:20px;padding:5px 16px;
+    flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .modal-close{
+    width:36px;height:36px;border-radius:6px;border:1px solid var(--line);background:var(--white);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);flex-shrink:0;
+  }
+  .modal-close svg{width:16px;height:16px;}
+  .modal-scroll{overflow-y:auto;flex:1;}
+
+  /* Shared demo-site building blocks */
+  .demo-content{display:none;}
+  .demo-content.active{display:block;}
+  .demo-nav{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:20px 36px;border-bottom:1px solid var(--line);flex-wrap:wrap;
+  }
+  .demo-logo{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--ink);}
+  .demo-navlinks{display:flex;gap:22px;font-size:0.9rem;color:var(--muted-soft);}
+  .demo-cta-btn{
+    background:var(--amber);color:var(--ink);font-size:0.85rem;font-weight:600;
+    padding:9px 18px;border-radius:4px;white-space:nowrap;
+  }
+  .demo-hero{padding:56px 36px;color:var(--paper);}
+  .demo-hero h3{font-family:'Fraunces',serif;font-size:2rem;font-weight:500;max-width:16ch;}
+  .demo-hero p{margin-top:14px;font-size:1.05rem;max-width:40ch;opacity:0.9;}
+  .demo-hero .demo-cta-btn{margin-top:26px;display:inline-block;}
+  .demo-section{padding:44px 36px;border-top:1px solid var(--line);}
+  .demo-section h4{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;margin-bottom:22px;color:var(--ink);}
+  .demo-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .demo-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .demo-tile{
+    background:var(--paper-dim);border-radius:6px;padding:20px;
+  }
+  .demo-tile h5{font-size:0.98rem;font-weight:500;color:var(--ink);margin-bottom:6px;}
+  .demo-tile p{font-size:0.85rem;color:var(--muted);}
+  .demo-photo{background:var(--paper-dim);border-radius:6px;height:110px;}
+  .demo-footer{
+    padding:32px 36px;background:var(--paper-dim);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:0.88rem;color:var(--muted-soft);
+  }
+  @media (max-width:640px){
+    .demo-grid-4{grid-template-columns:1fr 1fr;}
+    .demo-grid-3{grid-template-columns:1fr;}
+    .demo-nav,.demo-hero,.demo-section,.demo-footer{padding-left:22px;padding-right:22px;}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -541,39 +622,42 @@
       <p>Sample builds showing what a finished site looks like for three different kinds of local business.</p>
     </div>
     <div class="work-grid">
-      <div class="work-card">
-        <div class="work-preview" role="img" aria-label="Site preview for Cedar and Stone Landscaping">
-          <span class="stripe" style="--c1:#2F5D50;--c2:#26493F;" aria-hidden="true"></span>
+      <button type="button" class="work-card" data-demo="cedar" aria-haspopup="dialog">
+        <div class="work-preview" aria-hidden="true">
+          <span class="stripe" style="--c1:#2F5D50;--c2:#26493F;"></span>
           <span class="plate">Cedar &amp; Stone</span>
         </div>
         <div class="work-body">
           <h3>Cedar &amp; Stone Landscaping</h3>
           <p>Quote request form, project gallery, and service-area map.</p>
           <span class="work-tag">Home &amp; garden</span> <span class="work-tag demo">Sample build</span>
+          <div class="work-cta">View full mockup</div>
         </div>
-      </div>
-      <div class="work-card">
-        <div class="work-preview" role="img" aria-label="Site preview for Maple Row Bakery">
-          <span class="stripe" style="--c1:#E2A63B;--c2:#C98A24;" aria-hidden="true"></span>
+      </button>
+      <button type="button" class="work-card" data-demo="maple" aria-haspopup="dialog">
+        <div class="work-preview" aria-hidden="true">
+          <span class="stripe" style="--c1:#E2A63B;--c2:#C98A24;"></span>
           <span class="plate">Maple Row</span>
         </div>
         <div class="work-body">
           <h3>Maple Row Bakery</h3>
           <p>Daily menu, online ordering link, and event catering inquiries.</p>
           <span class="work-tag">Food &amp; drink</span> <span class="work-tag demo">Sample build</span>
+          <div class="work-cta">View full mockup</div>
         </div>
-      </div>
-      <div class="work-card">
-        <div class="work-preview" role="img" aria-label="Site preview for Harbor Light Dental">
-          <span class="stripe" style="--c1:#16241F;--c2:#3C4A44;" aria-hidden="true"></span>
+      </button>
+      <button type="button" class="work-card" data-demo="harbor" aria-haspopup="dialog">
+        <div class="work-preview" aria-hidden="true">
+          <span class="stripe" style="--c1:#16241F;--c2:#3C4A44;"></span>
           <span class="plate">Harbor Light</span>
         </div>
         <div class="work-body">
           <h3>Harbor Light Dental</h3>
           <p>Online booking, insurance info, and new-patient forms.</p>
           <span class="work-tag">Health &amp; wellness</span> <span class="work-tag demo">Sample build</span>
+          <div class="work-cta">View full mockup</div>
         </div>
-      </div>
+      </button>
     </div>
   </div>
 </section>
@@ -733,12 +817,130 @@
   </div>
 </section>
 
+
+<div class="modal-overlay" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-panel">
+    <div class="modal-bar">
+      <span class="modal-url" id="modalTitle">example-preview.com</span>
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close preview">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+    </div>
+    <div class="modal-scroll">
+
+      <div class="demo-content" id="demo-cedar">
+        <div class="demo-nav">
+          <span class="demo-logo">Cedar &amp; Stone</span>
+          <div class="demo-navlinks">
+            <span>Services</span><span>Gallery</span><span>About</span>
+          </div>
+          <span class="demo-cta-btn">Get a quote</span>
+        </div>
+        <div class="demo-hero" style="background:linear-gradient(135deg,#2F5D50,#1D3A32);">
+          <h3>Landscaping done right, the first time.</h3>
+          <p>Lawn care, hardscaping, and seasonal cleanup for Elyria and the surrounding area since 2011.</p>
+          <span class="demo-cta-btn">Request a free quote</span>
+        </div>
+        <div class="demo-section">
+          <h4>Services</h4>
+          <div class="demo-grid-4">
+            <div class="demo-tile"><h5>Lawn care</h5><p>Weekly mowing, edging, and seasonal treatments.</p></div>
+            <div class="demo-tile"><h5>Hardscaping</h5><p>Patios, walkways, and retaining walls.</p></div>
+            <div class="demo-tile"><h5>Seasonal cleanup</h5><p>Spring and fall leaf and debris removal.</p></div>
+            <div class="demo-tile"><h5>Irrigation</h5><p>System install, repair, and winterizing.</p></div>
+          </div>
+        </div>
+        <div class="demo-section">
+          <h4>Recent projects</h4>
+          <div class="demo-grid-3">
+            <div class="demo-photo"></div><div class="demo-photo"></div><div class="demo-photo"></div>
+          </div>
+        </div>
+        <div class="demo-footer">
+          <span>Cedar &amp; Stone Landscaping</span>
+          <span>Serving Elyria &amp; the surrounding area</span>
+        </div>
+      </div>
+
+      <div class="demo-content" id="demo-maple">
+        <div class="demo-nav">
+          <span class="demo-logo">Maple Row Bakery</span>
+          <div class="demo-navlinks">
+            <span>Menu</span><span>Catering</span><span>Visit</span>
+          </div>
+          <span class="demo-cta-btn">Order online</span>
+        </div>
+        <div class="demo-hero" style="background:linear-gradient(135deg,#C98A24,#A66C16);">
+          <h3>Fresh baked, every morning.</h3>
+          <p>Sourdough, seasonal pies, and custom cakes made from scratch daily.</p>
+          <span class="demo-cta-btn">See today's menu</span>
+        </div>
+        <div class="demo-section">
+          <h4>What's baking</h4>
+          <div class="demo-grid-4">
+            <div class="demo-tile"><h5>Sourdough loaves</h5><p>Baked fresh each morning, in store by 7am.</p></div>
+            <div class="demo-tile"><h5>Seasonal pies</h5><p>Rotating flavors by what's in season.</p></div>
+            <div class="demo-tile"><h5>Custom cakes</h5><p>Order ahead for birthdays and events.</p></div>
+            <div class="demo-tile"><h5>Coffee &amp; pastries</h5><p>Full espresso bar, open early.</p></div>
+          </div>
+        </div>
+        <div class="demo-section">
+          <h4>Inside the bakery</h4>
+          <div class="demo-grid-3">
+            <div class="demo-photo"></div><div class="demo-photo"></div><div class="demo-photo"></div>
+          </div>
+        </div>
+        <div class="demo-footer">
+          <span>Maple Row Bakery</span>
+          <span>Open Tuesday&ndash;Sunday, 7am&ndash;3pm</span>
+        </div>
+      </div>
+
+      <div class="demo-content" id="demo-harbor">
+        <div class="demo-nav">
+          <span class="demo-logo">Harbor Light Dental</span>
+          <div class="demo-navlinks">
+            <span>Services</span><span>New Patients</span><span>Insurance</span>
+          </div>
+          <span class="demo-cta-btn">Book online</span>
+        </div>
+        <div class="demo-hero" style="background:linear-gradient(135deg,#16241F,#0F1A16);">
+          <h3>Modern dental care, without the anxiety.</h3>
+          <p>Cleanings, cosmetic dentistry, and emergency care for the whole family.</p>
+          <span class="demo-cta-btn">Book an appointment</span>
+        </div>
+        <div class="demo-section">
+          <h4>Services</h4>
+          <div class="demo-grid-4">
+            <div class="demo-tile"><h5>Cleanings &amp; exams</h5><p>Routine care to keep small problems small.</p></div>
+            <div class="demo-tile"><h5>Cosmetic dentistry</h5><p>Whitening, veneers, and bonding.</p></div>
+            <div class="demo-tile"><h5>Emergency care</h5><p>Same-day appointments for urgent pain.</p></div>
+            <div class="demo-tile"><h5>New patient specials</h5><p>Exam, cleaning, and X-rays for new patients.</p></div>
+          </div>
+        </div>
+        <div class="demo-section">
+          <h4>The office</h4>
+          <div class="demo-grid-3">
+            <div class="demo-photo"></div><div class="demo-photo"></div><div class="demo-photo"></div>
+          </div>
+        </div>
+        <div class="demo-footer">
+          <span>Harbor Light Dental</span>
+          <span>Most insurance accepted</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </main>
 
 <footer>
   <div class="wrap">
     <span>Feigi Web</span>
     <span>Serving local businesses in Northeast Ohio</span>
+    <span class="footer-links"><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a></span>
   </div>
 </footer>
 
@@ -811,6 +1013,60 @@
 
   window.addEventListener('resize', function(){
     if(window.innerWidth > 860 && navIsOpen()) closeNav(false);
+  });
+
+  /* ---------- Demo site modal ---------- */
+  var modal      = document.getElementById('demoModal');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalClose = document.getElementById('modalClose');
+  var lastTrigger = null;
+
+  var demoMeta = {
+    cedar: { url: 'cedarstonelandscaping.com' },
+    maple: { url: 'maplerowbakery.com' },
+    harbor:{ url: 'harborlightdental.com' }
+  };
+
+  function modalIsOpen(){ return modal.classList.contains('open'); }
+
+  function openModal(key, trigger){
+    document.querySelectorAll('.demo-content').forEach(function(el){
+      el.classList.toggle('active', el.id === 'demo-' + key);
+    });
+    modalTitle.textContent = (demoMeta[key] && demoMeta[key].url) || 'preview.com';
+    modal.classList.add('open');
+    document.body.classList.add('nav-open'); /* reuse existing overflow:hidden rule */
+    lastTrigger = trigger || null;
+    modalClose.focus();
+  }
+
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.classList.remove('nav-open');
+    if(lastTrigger) lastTrigger.focus();
+  }
+
+  document.querySelectorAll('.work-card[data-demo]').forEach(function(btn){
+    btn.addEventListener('click', function(){ openModal(btn.getAttribute('data-demo'), btn); });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', function(e){
+    if(e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(!modalIsOpen()) return;
+    if(e.key === 'Escape'){ closeModal(); return; }
+    if(e.key === 'Tab'){
+      var focusables = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if(!focusables.length) return;
+      var list = Array.prototype.slice.call(focusables);
+      var first = list[0], last = list[list.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
   });
 
   /* ---------- Before / after switch ---------- */
