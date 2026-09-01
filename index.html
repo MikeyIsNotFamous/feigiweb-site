@@ -505,23 +505,86 @@
   .demo-hero .demo-cta-btn{margin-top:26px;display:inline-block;}
   .demo-section{padding:44px 36px;border-top:1px solid var(--line);}
   .demo-section h4{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;margin-bottom:22px;color:var(--ink);}
-  .demo-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-  .demo-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .demo-tile{
-    background:var(--paper-dim);border-radius:6px;padding:20px;
-  }
-  .demo-tile h5{font-size:0.98rem;font-weight:500;color:var(--ink);margin-bottom:6px;}
-  .demo-tile p{font-size:0.85rem;color:var(--muted);}
-  .demo-photo{background:var(--paper-dim);border-radius:6px;height:110px;}
   .demo-footer{
     padding:32px 36px;background:var(--paper-dim);
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
     font-size:0.88rem;color:var(--muted-soft);
   }
+
+  /* --- Cedar & Stone: split hero, horizontal icon row, masonry gallery --- */
+  .demo-hero-split{display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;padding:0;}
+  .demo-hero-split .split-text{padding:52px 40px;}
+  .demo-hero-split .split-text h3{color:var(--ink);}
+  .demo-hero-split .split-text p{color:var(--body);opacity:1;}
+  .demo-hero-split .split-photo{height:100%;min-height:260px;background:linear-gradient(160deg,#2F5D50,#1D3A32);}
+  .icon-row{display:flex;gap:28px;flex-wrap:wrap;}
+  .icon-row .icon-item{flex:1 1 130px;text-align:center;}
+  .icon-circle{
+    width:52px;height:52px;border-radius:50%;background:var(--paper-dim);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 12px;
+    font-family:'Fraunces',serif;color:var(--pine);font-size:1.2rem;
+  }
+  .icon-item h5{font-size:0.92rem;font-weight:500;color:var(--ink);margin-bottom:4px;}
+  .icon-item p{font-size:0.82rem;color:var(--muted);}
+  .masonry{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:56px;gap:12px;}
+  .masonry div:nth-child(1){grid-row:span 3;grid-column:span 2;}
+  .masonry div:nth-child(2){grid-row:span 2;}
+  .masonry div:nth-child(3){grid-row:span 2;}
+  .masonry div:nth-child(4){grid-row:span 1;grid-column:span 2;}
+  .masonry div{background:var(--paper-dim);border-radius:6px;}
+
+  /* --- Maple Row: centered hero, menu list, single banner photo --- */
+  .demo-hero-centered{text-align:center;padding:64px 40px;}
+  .demo-hero-centered h3{margin:0 auto;}
+  .demo-hero-centered p{margin-left:auto;margin-right:auto;}
+  .menu-list{max-width:520px;margin:0 auto;}
+  .menu-row{
+    display:flex;align-items:baseline;gap:8px;padding:12px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .menu-row .menu-name{font-weight:500;color:var(--ink);white-space:nowrap;}
+  .menu-row .menu-fill{flex:1;border-bottom:1px dotted var(--line);transform:translateY(-4px);}
+  .menu-row .menu-price{color:var(--muted-soft);white-space:nowrap;}
+  .banner-photo{
+    height:150px;border-radius:8px;
+    background:linear-gradient(120deg,#E2A63B,#C98A24);
+  }
+
+  /* --- Harbor Light: hero with stat bar, sidebar split --- */
+  .demo-hero-stats{position:relative;padding-bottom:76px;}
+  .stat-bar{
+    position:absolute;left:36px;right:36px;bottom:-38px;
+    background:var(--white);border:1px solid var(--line);border-radius:8px;
+    display:flex;box-shadow:0 6px 18px rgba(22,36,31,0.08);
+    overflow:hidden;
+  }
+  .stat-bar .stat{flex:1;text-align:center;padding:18px 8px;}
+  .stat-bar .stat + .stat{border-left:1px solid var(--line);}
+  .stat-bar .stat strong{display:block;font-family:'Fraunces',serif;font-size:1.4rem;color:var(--pine);}
+  .stat-bar .stat span{font-size:0.78rem;color:var(--muted);}
+  .sidebar-split{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;padding-top:56px;}
+  .service-rows .service-row{
+    display:flex;align-items:baseline;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);
+  }
+  .service-rows .service-row:first-child{padding-top:0;}
+  .service-rows .check{color:var(--pine);font-weight:700;}
+  .service-rows h5{font-size:0.98rem;font-weight:500;color:var(--ink);}
+  .service-rows p{font-size:0.84rem;color:var(--muted);margin-top:2px;}
+  .appt-card{
+    background:var(--paper-dim);border-radius:8px;padding:24px;align-self:start;
+  }
+  .appt-card h5{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:500;margin-bottom:8px;color:var(--ink);}
+  .appt-card p{font-size:0.86rem;color:var(--muted);margin-bottom:16px;}
+
   @media (max-width:640px){
-    .demo-grid-4{grid-template-columns:1fr 1fr;}
-    .demo-grid-3{grid-template-columns:1fr;}
-    .demo-nav,.demo-hero,.demo-section,.demo-footer{padding-left:22px;padding-right:22px;}
+    .demo-nav,.demo-hero,.demo-hero-split .split-text,.demo-section,.demo-footer{padding-left:22px;padding-right:22px;}
+    .demo-hero-split{grid-template-columns:1fr;}
+    .demo-hero-split .split-photo{min-height:160px;order:-1;}
+    .icon-row{gap:20px;}
+    .masonry{grid-template-columns:1fr 1fr;}
+    .sidebar-split{grid-template-columns:1fr;padding-top:64px;}
+    .stat-bar{left:22px;right:22px;flex-wrap:wrap;}
+    .stat-bar .stat{flex:1 1 33%;}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -836,24 +899,27 @@
           </div>
           <span class="demo-cta-btn">Get a quote</span>
         </div>
-        <div class="demo-hero" style="background:linear-gradient(135deg,#2F5D50,#1D3A32);">
-          <h3>Landscaping done right, the first time.</h3>
-          <p>Lawn care, hardscaping, and seasonal cleanup for Elyria and the surrounding area since 2011.</p>
-          <span class="demo-cta-btn">Request a free quote</span>
+        <div class="demo-hero-split">
+          <div class="split-text">
+            <h3>Landscaping done right, the first time.</h3>
+            <p>Lawn care, hardscaping, and seasonal cleanup for Elyria and the surrounding area since 2011.</p>
+            <span class="demo-cta-btn">Request a free quote</span>
+          </div>
+          <div class="split-photo"></div>
         </div>
         <div class="demo-section">
           <h4>Services</h4>
-          <div class="demo-grid-4">
-            <div class="demo-tile"><h5>Lawn care</h5><p>Weekly mowing, edging, and seasonal treatments.</p></div>
-            <div class="demo-tile"><h5>Hardscaping</h5><p>Patios, walkways, and retaining walls.</p></div>
-            <div class="demo-tile"><h5>Seasonal cleanup</h5><p>Spring and fall leaf and debris removal.</p></div>
-            <div class="demo-tile"><h5>Irrigation</h5><p>System install, repair, and winterizing.</p></div>
+          <div class="icon-row">
+            <div class="icon-item"><div class="icon-circle">L</div><h5>Lawn care</h5><p>Mowing &amp; seasonal treatments</p></div>
+            <div class="icon-item"><div class="icon-circle">H</div><h5>Hardscaping</h5><p>Patios &amp; retaining walls</p></div>
+            <div class="icon-item"><div class="icon-circle">C</div><h5>Cleanup</h5><p>Spring &amp; fall debris removal</p></div>
+            <div class="icon-item"><div class="icon-circle">I</div><h5>Irrigation</h5><p>Install, repair, winterizing</p></div>
           </div>
         </div>
         <div class="demo-section">
           <h4>Recent projects</h4>
-          <div class="demo-grid-3">
-            <div class="demo-photo"></div><div class="demo-photo"></div><div class="demo-photo"></div>
+          <div class="masonry">
+            <div></div><div></div><div></div><div></div>
           </div>
         </div>
         <div class="demo-footer">
@@ -870,25 +936,23 @@
           </div>
           <span class="demo-cta-btn">Order online</span>
         </div>
-        <div class="demo-hero" style="background:linear-gradient(135deg,#C98A24,#A66C16);">
+        <div class="demo-hero demo-hero-centered" style="background:linear-gradient(135deg,#C98A24,#A66C16);">
           <h3>Fresh baked, every morning.</h3>
           <p>Sourdough, seasonal pies, and custom cakes made from scratch daily.</p>
           <span class="demo-cta-btn">See today's menu</span>
         </div>
         <div class="demo-section">
-          <h4>What's baking</h4>
-          <div class="demo-grid-4">
-            <div class="demo-tile"><h5>Sourdough loaves</h5><p>Baked fresh each morning, in store by 7am.</p></div>
-            <div class="demo-tile"><h5>Seasonal pies</h5><p>Rotating flavors by what's in season.</p></div>
-            <div class="demo-tile"><h5>Custom cakes</h5><p>Order ahead for birthdays and events.</p></div>
-            <div class="demo-tile"><h5>Coffee &amp; pastries</h5><p>Full espresso bar, open early.</p></div>
+          <h4>Today's menu</h4>
+          <div class="menu-list">
+            <div class="menu-row"><span class="menu-name">Sourdough loaf</span><span class="menu-fill"></span><span class="menu-price">$8</span></div>
+            <div class="menu-row"><span class="menu-name">Seasonal fruit pie</span><span class="menu-fill"></span><span class="menu-price">$22</span></div>
+            <div class="menu-row"><span class="menu-name">Custom cake, serves 12</span><span class="menu-fill"></span><span class="menu-price">from $45</span></div>
+            <div class="menu-row"><span class="menu-name">Espresso &amp; pastry combo</span><span class="menu-fill"></span><span class="menu-price">$7</span></div>
           </div>
         </div>
         <div class="demo-section">
           <h4>Inside the bakery</h4>
-          <div class="demo-grid-3">
-            <div class="demo-photo"></div><div class="demo-photo"></div><div class="demo-photo"></div>
-          </div>
+          <div class="banner-photo"></div>
         </div>
         <div class="demo-footer">
           <span>Maple Row Bakery</span>
@@ -904,24 +968,29 @@
           </div>
           <span class="demo-cta-btn">Book online</span>
         </div>
-        <div class="demo-hero" style="background:linear-gradient(135deg,#16241F,#0F1A16);">
+        <div class="demo-hero demo-hero-stats" style="background:linear-gradient(135deg,#16241F,#0F1A16);">
           <h3>Modern dental care, without the anxiety.</h3>
           <p>Cleanings, cosmetic dentistry, and emergency care for the whole family.</p>
           <span class="demo-cta-btn">Book an appointment</span>
-        </div>
-        <div class="demo-section">
-          <h4>Services</h4>
-          <div class="demo-grid-4">
-            <div class="demo-tile"><h5>Cleanings &amp; exams</h5><p>Routine care to keep small problems small.</p></div>
-            <div class="demo-tile"><h5>Cosmetic dentistry</h5><p>Whitening, veneers, and bonding.</p></div>
-            <div class="demo-tile"><h5>Emergency care</h5><p>Same-day appointments for urgent pain.</p></div>
-            <div class="demo-tile"><h5>New patient specials</h5><p>Exam, cleaning, and X-rays for new patients.</p></div>
+          <div class="stat-bar">
+            <div class="stat"><strong>18</strong><span>Years in practice</span></div>
+            <div class="stat"><strong>Same-day</strong><span>Emergency slots</span></div>
+            <div class="stat"><strong>Most</strong><span>Insurance accepted</span></div>
           </div>
         </div>
         <div class="demo-section">
-          <h4>The office</h4>
-          <div class="demo-grid-3">
-            <div class="demo-photo"></div><div class="demo-photo"></div><div class="demo-photo"></div>
+          <div class="sidebar-split">
+            <div class="service-rows">
+              <div class="service-row"><span class="check">&#10003;</span><div><h5>Cleanings &amp; exams</h5><p>Routine care to keep small problems small.</p></div></div>
+              <div class="service-row"><span class="check">&#10003;</span><div><h5>Cosmetic dentistry</h5><p>Whitening, veneers, and bonding.</p></div></div>
+              <div class="service-row"><span class="check">&#10003;</span><div><h5>Emergency care</h5><p>Same-day appointments for urgent pain.</p></div></div>
+              <div class="service-row"><span class="check">&#10003;</span><div><h5>New patient specials</h5><p>Exam, cleaning, and X-rays included.</p></div></div>
+            </div>
+            <div class="appt-card">
+              <h5>New patient?</h5>
+              <p>Exam, cleaning, and X-rays for first-time patients.</p>
+              <span class="demo-cta-btn">Book your first visit</span>
+            </div>
           </div>
         </div>
         <div class="demo-footer">
