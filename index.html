@@ -498,11 +498,14 @@
   .demo-cta-btn{
     background:var(--amber);color:var(--ink);font-size:0.85rem;font-weight:600;
     padding:9px 18px;border-radius:4px;white-space:nowrap;
+    border:none;font-family:'Inter',sans-serif;cursor:pointer;display:inline-block;
   }
+  .demo-cta-btn:hover{background:#D6952E;}
   .demo-hero{padding:56px 36px;color:var(--paper);}
   .demo-hero h3{font-family:'Fraunces',serif;font-size:2rem;font-weight:500;max-width:16ch;}
   .demo-hero p{margin-top:14px;font-size:1.05rem;max-width:40ch;opacity:0.9;}
-  .demo-hero .demo-cta-btn{margin-top:26px;display:inline-block;}
+  .demo-hero .demo-cta-btn,
+  .demo-hero-split .demo-cta-btn{margin-top:26px;}
   .demo-section{padding:44px 36px;border-top:1px solid var(--line);}
   .demo-section h4{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;margin-bottom:22px;color:var(--ink);}
   .demo-footer{
@@ -897,13 +900,13 @@
           <div class="demo-navlinks">
             <span>Services</span><span>Gallery</span><span>About</span>
           </div>
-          <span class="demo-cta-btn">Get a quote</span>
+          <button type="button" class="demo-cta-btn demo-cta">Get a quote</button>
         </div>
         <div class="demo-hero-split">
           <div class="split-text">
             <h3>Landscaping done right, the first time.</h3>
             <p>Lawn care, hardscaping, and seasonal cleanup for Elyria and the surrounding area since 2011.</p>
-            <span class="demo-cta-btn">Request a free quote</span>
+            <button type="button" class="demo-cta-btn demo-cta">Request a free quote</button>
           </div>
           <div class="split-photo"></div>
         </div>
@@ -934,12 +937,12 @@
           <div class="demo-navlinks">
             <span>Menu</span><span>Catering</span><span>Visit</span>
           </div>
-          <span class="demo-cta-btn">Order online</span>
+          <button type="button" class="demo-cta-btn demo-cta">Order online</button>
         </div>
         <div class="demo-hero demo-hero-centered" style="background:linear-gradient(135deg,#C98A24,#A66C16);">
           <h3>Fresh baked, every morning.</h3>
           <p>Sourdough, seasonal pies, and custom cakes made from scratch daily.</p>
-          <span class="demo-cta-btn">See today's menu</span>
+          <button type="button" class="demo-cta-btn demo-cta">See today's menu</button>
         </div>
         <div class="demo-section">
           <h4>Today's menu</h4>
@@ -966,12 +969,12 @@
           <div class="demo-navlinks">
             <span>Services</span><span>New Patients</span><span>Insurance</span>
           </div>
-          <span class="demo-cta-btn">Book online</span>
+          <button type="button" class="demo-cta-btn demo-cta">Book online</button>
         </div>
         <div class="demo-hero demo-hero-stats" style="background:linear-gradient(135deg,#16241F,#0F1A16);">
           <h3>Modern dental care, without the anxiety.</h3>
           <p>Cleanings, cosmetic dentistry, and emergency care for the whole family.</p>
-          <span class="demo-cta-btn">Book an appointment</span>
+          <button type="button" class="demo-cta-btn demo-cta">Book an appointment</button>
           <div class="stat-bar">
             <div class="stat"><strong>18</strong><span>Years in practice</span></div>
             <div class="stat"><strong>Same-day</strong><span>Emergency slots</span></div>
@@ -989,7 +992,7 @@
             <div class="appt-card">
               <h5>New patient?</h5>
               <p>Exam, cleaning, and X-rays for first-time patients.</p>
-              <span class="demo-cta-btn">Book your first visit</span>
+              <button type="button" class="demo-cta-btn demo-cta">Book your first visit</button>
             </div>
           </div>
         </div>
@@ -1136,6 +1139,15 @@
       if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
       else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
     }
+  });
+
+  document.querySelectorAll('.demo-cta').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      closeModal();
+      var contact = document.getElementById('contact');
+      contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.setTimeout(function(){ document.getElementById('name').focus(); }, 400);
+    });
   });
 
   /* ---------- Before / after switch ---------- */
