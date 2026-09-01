@@ -252,7 +252,7 @@
   .switch[aria-checked="false"] .track::after{transform:translateX(0);}
   .switch[aria-checked="true"] .track::after{transform:translateX(20px);}
 
-  .mock-body{position:relative;height:340px;padding:22px;}
+  .mock-body{position:relative;height:392px;padding:22px;}
   .mock-state{
     position:absolute;inset:0;padding:22px;
     opacity:0;transition:opacity .3s ease;
@@ -269,13 +269,27 @@
   .after-cta{background:var(--amber);color:var(--white);font-size:0.75rem;padding:6px 12px;border-radius:3px;font-weight:600;white-space:nowrap;}
   .after-hero{
     background:linear-gradient(135deg,var(--pine) 0%, #234840 100%);
-    border-radius:5px;min-height:130px;padding:20px;color:var(--paper);
-    display:flex;flex-direction:column;justify-content:center;gap:8px;margin-bottom:16px;
+    border-radius:5px;min-height:104px;padding:18px 20px;color:var(--paper);
+    display:flex;flex-direction:column;justify-content:center;gap:6px;margin-bottom:14px;
   }
   .after-hero span:first-child{font-family:'Fraunces',serif;font-size:1.2rem;}
   .after-hero span:last-child{font-size:0.8rem;opacity:0.92;}
   .after-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-  .after-card{background:var(--paper-dim);border-radius:4px;height:64px;}
+  .after-card{
+    background:var(--paper-dim);border-radius:6px;padding:12px 8px;text-align:center;
+  }
+  .after-card .chip-icon{
+    width:26px;height:26px;border-radius:50%;background:var(--pine);color:var(--white);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 8px;
+    font-family:'Fraunces',serif;font-size:0.78rem;
+  }
+  .after-card .chip-label{display:block;font-size:0.72rem;font-weight:600;color:var(--ink);}
+  .after-card .chip-sub{display:block;font-size:0.66rem;color:var(--muted);margin-top:2px;}
+  .after-footer{
+    display:flex;justify-content:space-between;gap:10px;
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
+    font-size:0.72rem;color:var(--muted-soft);
+  }
 
   /* SECTION HEADERS */
   .section{padding:88px 0;border-top:1px solid var(--line);}
@@ -670,10 +684,26 @@
             <span>Landscaping done right, the first time.</span>
             <span>Serving Elyria &amp; the surrounding area since 2011</span>
           </div>
-          <div class="after-cards" role="img" aria-label="Photo gallery of past landscaping jobs">
-            <div class="after-card"></div>
-            <div class="after-card"></div>
-            <div class="after-card"></div>
+          <div class="after-cards" role="img" aria-label="Feature highlights: free quotes, project gallery, and reviews">
+            <div class="after-card">
+              <span class="chip-icon" aria-hidden="true">Q</span>
+              <span class="chip-label">Free quotes</span>
+              <span class="chip-sub">Request online</span>
+            </div>
+            <div class="after-card">
+              <span class="chip-icon" aria-hidden="true">G</span>
+              <span class="chip-label">Project gallery</span>
+              <span class="chip-sub">Recent work</span>
+            </div>
+            <div class="after-card">
+              <span class="chip-icon" aria-hidden="true">&#9733;</span>
+              <span class="chip-label">5-star reviews</span>
+              <span class="chip-sub">Real customers</span>
+            </div>
+          </div>
+          <div class="after-footer">
+            <span>Cedar &amp; Stone Landscaping</span>
+            <span>Elyria, OH</span>
           </div>
         </div>
       </div>
